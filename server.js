@@ -246,6 +246,13 @@ app.post('/interaction/:uid/login', async (req, res, next) => {
 
     const accountId = accountIdForEmail(email);
     users.set(accountId, email);
+    const details = await oidc.interactionDetails(req, res);
+    const grant = new oidc.Grant({
+      accountId,
+      clientId: details.params.client_id,
+    });
+    grant.addOIDCScope('openid profile email');
+    const grantId = await grant.save();
 
     await oidc.interactionFinished(req, res, {
       login: {
@@ -253,7 +260,9 @@ app.post('/interaction/:uid/login', async (req, res, next) => {
         remember: true,
         ts: Math.floor(Date.now() / 1000),
       },
-      consent: {},
+      consent: {
+        grantId,
+      },
     }, { mergeWithLastSubmission: false });
   } catch (error) {
     next(error);
