@@ -187,10 +187,37 @@ const oidc = new Provider(issuer, {
       }),
     };
   },
+  loadExistingGrant: async (ctx) => {
+    const grant = new ctx.oidc.provider.Grant({
+      accountId: ctx.oidc.session.accountId,
+      clientId: ctx.oidc.client.clientId,
+    });
+    grant.addOIDCScope('openid profile email');
+    grant.addOIDCClaims(['sub', 'email', 'email_verified', 'given_name', 'family_name']);
+    await grant.save();
+    return grant;
+  },
   interactions: {
     url(_ctx, interaction) {
       return `/interaction/${interaction.uid}`;
     },
+  },
+  renderError: async (ctx, out, error) => {
+    console.error('OIDC renderError', {
+      error: error?.error,
+      error_description: error?.error_description,
+      message: error?.message,
+      status: error?.status,
+      statusCode: error?.statusCode,
+      stack: error?.stack,
+    });
+    ctx.type = 'html';
+    ctx.body = page('SSO error', `
+      <section class="panel">
+        <h1>SSO error</h1>
+        <p class="error">${escapeHtml(error?.error_description || error?.message || out?.error_description || 'Unexpected OIDC error')}</p>
+      </section>
+    `);
   },
 });
 oidc.proxy = true;
