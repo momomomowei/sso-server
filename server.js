@@ -346,7 +346,7 @@ function isAllowedEmail(email) {
 }
 
 function accountIdForEmail(email) {
-  return crypto.createHash('sha256').update(email).digest('hex');
+  return email;
 }
 
 function randomDevSecret() {
