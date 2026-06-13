@@ -161,7 +161,7 @@ const oidc = new Provider(issuer, {
     keys: cookieKeys,
   },
   pkce: {
-    required: false,
+    required: () => false,
   },
   claims: {
     openid: ['sub'],
