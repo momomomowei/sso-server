@@ -1,0 +1,19 @@
+{
+  "name": "domain-sso",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "jose": "^5.9.6",
+    "oidc-provider": "^8.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

@@ -1,0 +1,11 @@
+services:
+  domain-sso:
+    build: .
+    container_name: domain-sso
+    restart: unless-stopped
+    ports:
+      - "${BIND_HOST:-0.0.0.0}:${PORT:-7080}:7080"
+    env_file:
+      - .env
+    volumes:
+      - ./data:/app/data
