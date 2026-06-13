@@ -197,15 +197,9 @@ app.set('trust proxy', true);
 app.use(express.urlencoded({ extended: false }));
 
 app.get('/', (_req, res) => {
-  res.type('html').send(page('Domain SSO', `
+  res.type('html').send(page('SSO服务器运行成功', `
     <section class="panel">
-      <h1>Domain SSO</h1>
-      <p class="muted">Issuer: <code>${escapeHtml(issuer)}</code></p>
-      <dl>
-        <div><dt>Allowed domains</dt><dd>${allowedDomains.map((domain) => `@${escapeHtml(domain)}`).join(', ')}</dd></div>
-        <div><dt>Client ID</dt><dd>${escapeHtml(clientId)}</dd></div>
-        <div><dt>Discovery</dt><dd><a href="/.well-known/openid-configuration">/.well-known/openid-configuration</a></dd></div>
-      </dl>
+      <h1>SSO服务器运行成功</h1>
     </section>
   `));
 });
