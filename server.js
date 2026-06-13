@@ -160,6 +160,9 @@ const oidc = new Provider(issuer, {
   cookies: {
     keys: cookieKeys,
   },
+  pkce: {
+    required: false,
+  },
   claims: {
     openid: ['sub'],
     email: ['email', 'email_verified'],
