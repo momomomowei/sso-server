@@ -160,6 +160,7 @@ const oidc = new Provider(issuer, {
   cookies: {
     keys: cookieKeys,
   },
+  conformIdTokenClaims: false,
   pkce: {
     required: () => false,
   },
