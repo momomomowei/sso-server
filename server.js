@@ -163,7 +163,7 @@ const oidc = new Provider(issuer, {
   claims: {
     openid: ['sub'],
     email: ['email', 'email_verified'],
-    profile: ['preferred_username', 'name'],
+    profile: ['preferred_username', 'name', 'given_name', 'family_name'],
   },
   features: {
     devInteractions: { enabled: false },
@@ -179,6 +179,8 @@ const oidc = new Provider(issuer, {
         email_verified: true,
         preferred_username: email,
         name: email,
+        given_name: email.split('@')[0],
+        family_name: 'User',
       }),
     };
   },
