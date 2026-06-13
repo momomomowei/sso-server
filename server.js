@@ -175,6 +175,8 @@ const oidc = new Provider(issuer, {
   },
   findAccount: async (_ctx, id) => {
     const email = users.get(id) || id;
+    if (!isAllowedEmail(email)) return undefined;
+
     return {
       accountId: id,
       claims: async () => ({
