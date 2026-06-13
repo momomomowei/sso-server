@@ -188,6 +188,7 @@ const oidc = new Provider(issuer, {
     },
   },
 });
+oidc.proxy = true;
 
 FileAdapter.configure(path.join(dataDir, 'oidc-store.json'));
 
